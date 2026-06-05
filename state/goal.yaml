@@ -1,0 +1,9 @@
+asset: "BTC/USD"
+exchange: "Coinbase"
+timeframe: "5m"
+target_return_30d: 0.10
+max_drawdown: 0.05
+min_sharpe: 1.2
+failure_below: -0.04
+reflection_every: 5
+one_variable_only: true

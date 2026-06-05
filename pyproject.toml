@@ -1,0 +1,22 @@
+[project]
+name = "btc-5m-ema-stochastic"
+version = "0.1.0"
+description = "BTC/USD EMA + RSI + Stochastic Oscillator on Coinbase (paper trading)"
+requires-python = ">=3.10"
+
+dependencies = [
+    "ccxt>=4.0.0",
+    "pyyaml>=6.0",
+    "httpx>=0.25.0",
+    "aiofiles>=23.0.0",
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "rich>=13.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["hermes_trading", "hermes_trading.adapters"]
