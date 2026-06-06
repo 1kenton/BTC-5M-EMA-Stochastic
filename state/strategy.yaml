@@ -1,54 +1,16 @@
 version: "01"
-timeframe: "5m"
 strategy_name: "EMA + RSI + Stochastic Oscillator"
 
-layer_1_market_structure:
-  description: "Trend identification using three custom EMAs"
-  ema_short: 25
-  ema_medium: 75
-  ema_long: 140
-  bullish_trend: "Price above all three EMAs, all sloping upward"
-  bearish_trend: "Price below all three EMAs, all sloping downward"
-  bounce_zones: "EMAs act as support (uptrend) or resistance (downtrend)"
-  entry_rule: "Only enter when EMA structure is confirmed"
-
-layer_2_trend_strength:
-  description: "Validate trend strength using RSI"
-  indicator: "RSI"
-  period: 75
-  bullish_threshold: 50
-  bearish_threshold: 50
-  logic: "RSI > 50 = trend still bullish, RSI < 50 = trend still bearish"
-  neutral_zone: 50
-  rule: "RSI confirms trend even when price pulls back"
-
-layer_3_entry_timing:
-  description: "Precise entry with Stochastic Oscillator"
-  indicator: "Stochastic Oscillator"
-  period_k: 14
-  period_d: 3
-  period_smoothing: 3
-  overbought_zone: 80
-  oversold_zone: 20
-  buy_signal: "Stochastic enters oversold zone (< 20) and crosses up in bullish trend"
-  sell_signal: "Stochastic enters overbought zone (> 80) and crosses down in bearish trend"
-
-entry_conditions:
-  rule_1: "EMA structure confirms trend direction"
-  rule_2: "RSI confirms trend strength (> or < 50)"
-  rule_3: "Stochastic enters oversold/overbought and crosses"
-  rule_4: "Price touching/bouncing off EMA level"
-  rule_5: "Risk-to-reward ratio >= 2.5:1"
-
-stop_loss:
-  placement: "Above/below the EMA level where entry occurred"
-  logic: "If price breaks through EMA, trend likely reversed"
-
-risk_reward:
-  minimum_ratio: 2.5
-  target_ratio: 5.0
-  description: "For every $100 risked, target $250-500 profit"
-
-position_sizing:
-  risk_percent: 1.0
-  position_size_r: 0.5
+# Tunable parameters (Hermes changes ONE per reflection cycle)
+entry:
+  ema_short: 25          # fast EMA period
+  ema_medium: 75         # mid EMA period (RSI matches this)
+  ema_long: 140          # slow EMA period (final trend barrier)
+  rsi_period: 75         # RSI period — synced to ema_medium
+  stoch_k: 14            # stochastic %K period
+  stoch_d: 3             # stochastic %D smoothing
+  stoch_ob: 80.0         # overbought threshold
+  stoch_os: 20.0         # oversold threshold
+  rr_ratio: 2.5          # risk-to-reward multiplier for target
+  slope_lookback: 3      # bars used to measure EMA slope direction
+  sl_buffer_pct: 0.002   # stop-loss buffer fraction beyond the EMA
